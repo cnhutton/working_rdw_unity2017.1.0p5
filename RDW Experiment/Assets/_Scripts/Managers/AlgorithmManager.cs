@@ -186,16 +186,17 @@ public class AlgorithmManager : MonoBehaviour
         float newZ;
         if (_negativeTest)
         {
-            newZ = (Response == Feedback.Same) ? 0.0f : 1.0f;
+            newZ = (Response == Feedback.Different) ? 0.0f : 1.0f;
         }
         else
         {
-            newZ = (Response == Feedback.Different) ? 0.0f : 1.0f;
+            newZ = (Response == Feedback.Same) ? 0.0f : 1.0f;
         }
 
         if (newZ != Zn)
         {
             ReversalList.Add(_currentGain);
+            Debug.Log(ReversalList.Count);
             if (ReversalList.Count == MaxReversals)
             {
                 if (_negativeTest)

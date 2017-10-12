@@ -1,0 +1,16 @@
+Participant: 121020171510
+Date: 12/10/2017
+Start Time: 15:10
+
+
+Participant: 121020171510
+Date: 12/10/2017
+Start Time: 15:10
+
+
+
+WALKTHROUGH PHASE
+Algorithm: Staircase
+Start Time: 15:11
+
+
