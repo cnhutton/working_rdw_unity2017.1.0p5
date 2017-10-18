@@ -24,6 +24,7 @@ public class Level4 : MonoBehaviour
     private int _turnCount;
     void Start()
     {
+       
         Manager.Sound.SetIndex(10);
         FindObjectOfType<Controller>().SetGain(0);
         Manager.Spawn.PurpleFeet(PurpleFeetSpawn.position, Quaternion.Euler(0, 180, 0));

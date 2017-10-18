@@ -17,7 +17,7 @@ public class AlgorithmManager : MonoBehaviour
     //PEST variables
     private static int _numLevels = 20;
     private int _stimulusLevel;
-    private float _stimulusRange;
+    private float _maxStimulusRange;
     private float _std;
 
     //Staircase specific variables
@@ -46,10 +46,11 @@ public class AlgorithmManager : MonoBehaviour
                 ReversalNum = 0;
                 ReversalList.Clear();
                 break;
+
             case AlgorithmType.PEST:
-                _numLevels = 20;
-                _stimulusRange = _currentGain * 2;    //Max gain value to try
+                _maxStimulusRange = _currentGain * 2;    //Max gain value to try
                 _std = _numLevels / 5;                //Reasonable estimation of slope (can be adjusted)
+
                 //Initialize prob of positive response and negative responses from the psychometric function
                 for (int i = 0; i < _numLevels * 2; ++i)
                 {
@@ -59,11 +60,14 @@ public class AlgorithmManager : MonoBehaviour
                     _plgit[i] = lgit;
                     _mlgit[i] = 1 - lgit;
                 }
-                _stimulusLevel = 0;
-                Response = Feedback.Same;
-                PESTSubroutine();                   //Initialize probability array for the highest stim value
-                _stimulusLevel = _numLevels;
+
+                _stimulusLevel = 20;
                 Response = Feedback.Different;
+
+                PESTSubroutine();                   //Initialize probability array for the highest stim value
+
+                _stimulusLevel = 1;
+                Response = Feedback.Same;
                 break;
             default:
                 throw new ArgumentOutOfRangeException("algorithm", algorithm, null);
@@ -94,20 +98,21 @@ public class AlgorithmManager : MonoBehaviour
         float p1 = 0f, p2 = 0f;     //Indices of max probability (can be 2 if they are the same)
 
         //iterate through posible values and adjust cumulative prob based on response
-        for (int i = 0; i < _numLevels; ++i)
+        for (int i = 1; i < _numLevels; ++i)
         {
             //update probabilities based on response
             switch (Response)
             {
-                case Feedback.Same:
-                    _prob[i] += _mlgit[_numLevels + _stimulusLevel - i];
-                    break;
                 case Feedback.Different:
                     _prob[i] += _plgit[_numLevels + _stimulusLevel - i];
+                    break;
+                case Feedback.Same:
+                    _prob[i] += _mlgit[_numLevels + _stimulusLevel - i];
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            //Debug.Log(_prob[i]);
 
             //find maximum liklihood
             if (_prob[i] > max)
@@ -119,17 +124,18 @@ public class AlgorithmManager : MonoBehaviour
             { //when multiple indices have same max prob set p2
                 p2 = i;
             }
+            
         }
-
         //average in case there are multiple max probs
         _stimulusLevel = (int)Mathf.Floor((p1 + p2) / 2);
+        
     }
 
     private void PEST()
     {
         PESTSubroutine();
-        _currentGain = _stimulusLevel * (_stimulusRange / _numLevels);
-
+        _currentGain = _stimulusLevel * (_maxStimulusRange / _numLevels);
+        Debug.Log(_currentGain);
         //TERMINATION CRITERIA//
         float fullSum = 0;
         float sum = 0;
@@ -147,6 +153,9 @@ public class AlgorithmManager : MonoBehaviour
                 sum += _prob[_stimulusLevel - i];
             }
         }
+
+        Debug.Log("Full sum: " + 0.775f * Mathf.Log(fullSum));
+        Debug.Log("Sum: " + Mathf.Log(sum));
 
         if (!(Mathf.Log(fullSum) * 0.775f <= Mathf.Log(sum))) return;
         if (_negativeTest)
@@ -208,6 +217,7 @@ public class AlgorithmManager : MonoBehaviour
                     }
                     _negativeTest = false;
                     Manager.Experiment.SetThresholdStaircase(_positiveThreshold, ReversalList.Average());
+                    return;
                 }
                 else
                 {

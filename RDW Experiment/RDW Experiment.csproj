@@ -235,12 +235,6 @@
     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\121020171430_FMS.txt" />
-    <None Include="Assets\121020171430_Results.txt" />
-    <None Include="Assets\121020171436_FMS.txt" />
-    <None Include="Assets\121020171436_Results.txt" />
-    <None Include="Assets\121020171510_FMS.txt" />
-    <None Include="Assets\121020171510_Results.txt" />
     <None Include="Assets\RDWT-master\Assets\RDW Toolkit\readme.txt" />
     <None Include="Assets\RDWT-master\ProjectSettings\ProjectVersion.txt" />
     <None Include="Assets\SimEval Experiment\Materials\Velvet\Velvet.shader" />

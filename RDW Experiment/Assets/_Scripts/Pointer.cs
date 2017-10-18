@@ -45,7 +45,7 @@ public class Pointer : MonoBehaviour
                     {
                         if (Click != null)
                         {
-                            Debug.LogWarning("Click");
+                            //Debug.LogWarning("Click");
                             Click(_hit.transform.GetComponent<ButtonObject>().type);
                         }
                     }
