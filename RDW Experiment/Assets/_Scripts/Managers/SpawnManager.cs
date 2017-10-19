@@ -44,16 +44,16 @@ public class SpawnManager : MonoBehaviour
     {
         switch (edge)
         {
-            case Edge.Northeast:
+            case Edge.North:
                 Instantiate(PurpleFeetPrefab, NortheastSpawn.position, Quaternion.Euler(0, -135, 0));
                 break;
-            case Edge.Southeast:
+            case Edge.East:
                 Instantiate(PurpleFeetPrefab, SoutheastSpawn.position, Quaternion.Euler(0, -45, 0));
                 break;
-            case Edge.Southwest:
+            case Edge.South:
                 Instantiate(PurpleFeetPrefab, SouthwestSpawn.position, Quaternion.Euler(0, 45, 0));
                 break;
-            case Edge.Northwest:
+            case Edge.West:
                 Instantiate(PurpleFeetPrefab, NorthwestSpawn.position, Quaternion.Euler(0, 135, 0));
                 break;
             default:
@@ -108,16 +108,16 @@ public class SpawnManager : MonoBehaviour
     {
         switch (edge)
         {
-            case Edge.Northeast:
+            case Edge.North:
                 GameObject clone1 = (GameObject)Instantiate(ContinueButtonPrefab, NortheastSpawn.position, Quaternion.Euler(0, -135, 0)) as GameObject;
                 break;
-            case Edge.Southeast:
+            case Edge.East:
                 GameObject clone2 = (GameObject)Instantiate(ContinueButtonPrefab, SoutheastSpawn.position, Quaternion.Euler(0, -45, 0)) as GameObject;
                 break;
-            case Edge.Southwest:
+            case Edge.South:
                 GameObject clone3 = (GameObject)Instantiate(ContinueButtonPrefab, SouthwestSpawn.position, Quaternion.Euler(0, 45, 0)) as GameObject;
                 break;
-            case Edge.Northwest:
+            case Edge.West:
                 GameObject clone4 = (GameObject)Instantiate(ContinueButtonPrefab, NorthwestSpawn.position, Quaternion.Euler(0, 135, 0)) as GameObject;
                 break;
             default:
@@ -160,16 +160,16 @@ public class SpawnManager : MonoBehaviour
     {
         switch (startEdge)
         {
-            case Edge.Northeast:
+            case Edge.North:
                 Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.identity);
                 break;
-            case Edge.Southeast:
+            case Edge.East:
                 Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.Euler(0, 90, 0));
                 break;
-            case Edge.Southwest:
+            case Edge.South:
                 Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.Euler(0, 180, 0));
                 break;
-            case Edge.Northwest:
+            case Edge.West:
                 Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.Euler(0, -90, 0));
                 break;
             default:
@@ -181,16 +181,16 @@ public class SpawnManager : MonoBehaviour
     {
         switch (edge)
         {
-            case Edge.Northeast:
+            case Edge.North:
                 Instantiate(EndpointPrefab, NortheastSpawn.position, Quaternion.identity);
                 break;
-            case Edge.Southeast:
+            case Edge.East:
                 Instantiate(EndpointPrefab, SoutheastSpawn.position, Quaternion.identity);
                 break;
-            case Edge.Southwest:
+            case Edge.South:
                 Instantiate(EndpointPrefab, SouthwestSpawn.position, Quaternion.identity);
                 break;
-            case Edge.Northwest:
+            case Edge.West:
                 Instantiate(EndpointPrefab, NorthwestSpawn.position, Quaternion.identity);
                 break;
             default:
@@ -223,16 +223,16 @@ public class SpawnManager : MonoBehaviour
     {
         switch (edge)
         {
-            case Edge.Northeast:
+            case Edge.North:
                 Instantiate(DiscernmentButtonsPrefab, NortheastSpawn.position, Quaternion.Euler(0, -135, 0));
                 break;
-            case Edge.Southeast:
+            case Edge.East:
                 Instantiate(DiscernmentButtonsPrefab, SoutheastSpawn.position, Quaternion.Euler(0, -45, 0));
                 break;
-            case Edge.Southwest:
+            case Edge.South:
                 Instantiate(DiscernmentButtonsPrefab, SouthwestSpawn.position, Quaternion.Euler(0, 45, 0));
                 break;
-            case Edge.Northwest:
+            case Edge.West:
                 Instantiate(DiscernmentButtonsPrefab, NorthwestSpawn.position, Quaternion.Euler(0, 135, 0));
                 break;
             default:

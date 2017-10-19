@@ -35,16 +35,16 @@ public class LevelUtilities
         switch (value)
         {
             case 0:
-                return Edge.Northeast;
+                return Edge.North;
             case 1:
-                return Edge.Northwest;
+                return Edge.West;
             case 2:
-                return Edge.Southeast;
+                return Edge.East;
             case 3:
-                return Edge.Southwest;
+                return Edge.South;
             default:
-                Debug.LogWarning("Random int Generator failed, using default value");
-                return Edge.Northwest;
+                Debug.LogError("Random int Generator failed, using default value");
+                return Edge.West;
         }
         
     }
@@ -53,25 +53,25 @@ public class LevelUtilities
     {
         switch (start)
         {
-            case Edge.Northeast:
+            case Edge.North:
                 if (turnLeft)
-                    return Edge.Southeast;
-                return Edge.Northwest;
+                    return Edge.East;
+                return Edge.West;
 
-            case Edge.Southeast:
+            case Edge.East:
                 if (turnLeft)
-                    return Edge.Southwest;
-                return Edge.Northeast;
+                    return Edge.South;
+                return Edge.North;
 
-            case Edge.Southwest:
+            case Edge.South:
                 if (turnLeft)
-                    return Edge.Northwest;
-                return Edge.Southeast;
+                    return Edge.West;
+                return Edge.East;
 
-            case Edge.Northwest:
+            case Edge.West:
                 if (turnLeft)
-                    return Edge.Northeast;
-                return Edge.Southwest;
+                    return Edge.North;
+                return Edge.South;
 
             default:
                 throw new ArgumentOutOfRangeException("start", start, null);

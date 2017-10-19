@@ -1,7 +1,7 @@
 ﻿public enum Edge
 {
-    Northeast,
-    Southeast,
-    Southwest,
-    Northwest
+    North,
+    East,
+    South,
+    West
 }
