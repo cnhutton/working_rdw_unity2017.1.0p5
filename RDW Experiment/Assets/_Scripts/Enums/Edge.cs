@@ -1,4 +1,4 @@
-﻿public enum Corner
+﻿public enum Edge
 {
     Northeast,
     Southeast,

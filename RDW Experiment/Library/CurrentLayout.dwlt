@@ -13,14 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 0
+    x: 1920
     y: 43
     width: 1920
     height: 1117
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 9}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -40,8 +40,8 @@ MonoBehaviour:
     y: 0
     width: 453
     height: 463
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -67,10 +67,10 @@ MonoBehaviour:
     y: 604
     width: 1359
     height: 463
-  m_MinSize: {x: 306, y: 221}
-  m_MaxSize: {x: 8006, y: 4021}
+  m_MinSize: {x: 436, y: 271}
+  m_MaxSize: {x: 14006, y: 10021}
   vertical: 0
-  controlID: 56
+  controlID: 103
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,10 +143,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 1067
-  m_MinSize: {x: 785, y: 442}
-  m_MaxSize: {x: 16010, y: 8042}
+  m_MinSize: {x: 917, y: 492}
+  m_MaxSize: {x: 22012, y: 14042}
   vertical: 0
-  controlID: 41
+  controlID: 65
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -190,14 +190,14 @@ MonoBehaviour:
     y: 0
     width: 906
     height: 463
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 19}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
   - {fileID: 19}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -282,10 +282,10 @@ MonoBehaviour:
     y: 0
     width: 1359
     height: 1067
-  m_MinSize: {x: 306, y: 442}
-  m_MaxSize: {x: 8006, y: 8042}
+  m_MinSize: {x: 436, y: 492}
+  m_MaxSize: {x: 14006, y: 14042}
   vertical: 1
-  controlID: 113
+  controlID: 10
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: 1920
     y: 696
     width: 904
     height: 442
@@ -350,20 +350,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/Prefabs/Spawn Points
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets
+  - Assets/Prefabs/Spawn Points
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\hutton\Documents\GitHub\working_rdw_unity2017.1.0p5\RDW
     Experiment
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 6a270000
-    m_LastClickedID: 10090
-    m_ExpandedIDs: 000000006a2700000e280000f0280000402a0000742a00009a2b00006e30000070300000723000007430000000ca9a3bffffff7f
+    m_SelectedIDs: 2c290000
+    m_LastClickedID: 10540
+    m_ExpandedIDs: 000000006a2700000c280000ec280000362a0000682a00008e2b00006230000064300000663000006830000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -391,7 +391,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000006a2700000e280000f0280000402a0000742a00009a2b00006e300000703000007230000074300000
+    m_ExpandedIDs: 000000006a2700000c280000ec280000362a0000682a00008e2b000062300000643000006630000068300000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -418,22 +418,22 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c62300003e5b0000342c0000ae280000c228000000000000aa390000743a00004e28000008280000602a00007a28000018290000482a00005e2b0000842a0000542a0000dc2800002c270000842600001a2900005e280000802f0000
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c62300003e5b0000342c0000ae280000c228000000000000aa390000743a00004e28000008280000602a00007a28000018290000482a00005e2b0000842a0000542a0000dc2800002c270000842600001a2900005e280000802f0000c02700001028000056280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 171020171650_Results
-      m_OriginalName: 171020171650_Results
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 14050
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_CreateAssetUtility:
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1361
+    x: 3281
     y: 92
     width: 353
     height: 1046
@@ -501,15 +501,15 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1718
+    x: 3638
     y: 92
     width: 202
     height: 1046
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 98cbfdff
-    m_LastClickedID: -144488
-    m_ExpandedIDs: 38cbfdffd4cbfdffd6cbfdff1afcffff00000000943d00009e3d0000
+    m_SelectedIDs: 56280000
+    m_LastClickedID: 0
+    m_ExpandedIDs: 38e9ffff3ae9ffff3ce9ffff48f5ffff1afcffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -528,7 +528,7 @@ MonoBehaviour:
       m_ClientGUIView: {fileID: 7}
     m_SearchString: 
   m_ExpandedScenes:
-  - 0 Preload
+  - 2 RDW Training
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: 1920
     y: 92
     width: 1357
     height: 583
@@ -564,9 +564,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 4.527713, y: -0.46947765, z: -0.8721162}
+    m_Target: {x: -1.0779687, y: -6.406787, z: 0.13846773}
     speed: 2
-    m_Value: {x: 4.527713, y: -0.46947765, z: -0.8721162}
+    m_Value: {x: -1.0779687, y: -6.406787, z: 0.13846773}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -589,13 +589,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.11107955, y: 0.82301974, z: -0.17261717, w: 0.5296254}
+    m_Target: {x: 0.072542354, y: 0.7196274, z: -0.68635917, w: 0.076061144}
     speed: 2
-    m_Value: {x: 0.11107955, y: 0.82301974, z: -0.17261717, w: 0.5296254}
+    m_Value: {x: 0.07254235, y: 0.7196273, z: -0.6863591, w: 0.07606114}
   m_Size:
-    m_Target: 5.4470115
+    m_Target: 11.954775
     speed: 2
-    m_Value: 5.4470115
+    m_Value: 11.954775
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 908
+    x: 2828
     y: 696
     width: 449
     height: 442

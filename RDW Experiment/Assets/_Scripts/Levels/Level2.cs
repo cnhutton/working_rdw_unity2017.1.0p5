@@ -7,8 +7,8 @@ public class Level2 : MonoBehaviour
 {
     private bool _turnLeft;
 
-    private Corner _startingCorner;
-    private Corner _endingCorner;
+    private Edge _startingEdge;
+    private Edge _endingEdge;
 
     private GameObject button;
     private bool _completed;
@@ -23,8 +23,8 @@ public class Level2 : MonoBehaviour
         Manager.Sound.SetIndex(2);
         _completed = false;
 
-        _startingCorner = LevelUtilities.ChooseRandomCorner();
-        Manager.Spawn.PurpleFeet(_startingCorner);
+        _startingEdge = LevelUtilities.ChooseRandomCorner();
+        Manager.Spawn.PurpleFeet(_startingEdge);
         FeetObject.OnCollision += Feet;
         Pointer.Click += Touchpad;
         _turnLeft = LevelUtilities.GenerateRandomBool();
@@ -57,7 +57,7 @@ public class Level2 : MonoBehaviour
             FindObjectOfType<Controller>().SetGain(0);
             Manager.Sound.PlayNextVoiceover(); //voiceover #4 turn to center
             _turnLeft = !_turnLeft;
-            _startingCorner = _endingCorner;
+            _startingEdge = _endingEdge;
             _completed = true;
             SetupPath();
         }
@@ -65,9 +65,9 @@ public class Level2 : MonoBehaviour
 
     private void SetupPath()
     {
-        _endingCorner = LevelUtilities.EndpointCorner(_startingCorner, _turnLeft);
-        Manager.Spawn.Path(_turnLeft, _startingCorner);
-        Manager.Spawn.Endpoint(_endingCorner);
+        _endingEdge = LevelUtilities.EndpointCorner(_startingEdge, _turnLeft);
+        Manager.Spawn.Path(_turnLeft, _startingEdge);
+        Manager.Spawn.Endpoint(_endingEdge);
         EndpointObject.OnCollision += Endpoint;
         FindObjectOfType<Controller>().SetGain(_completed ? 0.5f : -0.5f);
     }

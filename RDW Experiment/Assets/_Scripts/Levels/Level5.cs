@@ -8,8 +8,8 @@ public class Level5 : MonoBehaviour
     private bool usePositive;
     private int count;
     private int totalCount;
-    private Corner _startingCorner;
-    private Corner _endingCorner;
+    private Edge _startingEdge;
+    private Edge _endingEdge;
 
     public delegate void EndpointReached();
 
@@ -26,8 +26,8 @@ public class Level5 : MonoBehaviour
     {
         Manager.Sound.SetIndex(12);
         FindObjectOfType<Controller>().SetGain(0);
-        _startingCorner = LevelUtilities.ChooseRandomCorner();
-        Manager.Spawn.PurpleFeet(_startingCorner);
+        _startingEdge = LevelUtilities.ChooseRandomCorner();
+        Manager.Spawn.PurpleFeet(_startingEdge);
         FeetObject.OnCollision += Feet;
         Pointer.Click += Touchpad;
         _turnLeft = LevelUtilities.GenerateRandomBool();
@@ -60,7 +60,7 @@ public class Level5 : MonoBehaviour
             Reached();
         }
 
-        Manager.Spawn.DiscernmentButtons(_endingCorner);
+        Manager.Spawn.DiscernmentButtons(_endingEdge);
         Manager.Sound.PlaySpecificVoiceover(13);
     }
 
@@ -88,9 +88,9 @@ public class Level5 : MonoBehaviour
             gain = usePositive ? positiveAvg : negativeAvg;
 
         FindObjectOfType<Controller>().SetGain(gain);
-        _endingCorner = LevelUtilities.EndpointCorner(_startingCorner, _turnLeft);
-        Manager.Spawn.Path(_turnLeft, _startingCorner);
-        Manager.Spawn.Endpoint(_endingCorner);
+        _endingEdge = LevelUtilities.EndpointCorner(_startingEdge, _turnLeft);
+        Manager.Spawn.Path(_turnLeft, _startingEdge);
+        Manager.Spawn.Endpoint(_endingEdge);
         EndpointObject.OnCollision += Endpoint;
     }
 

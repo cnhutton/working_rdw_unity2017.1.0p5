@@ -29,49 +29,49 @@ public class LevelUtilities
         return new Vector3(vector.x, 0, vector.z);
     }
 
-    public static Corner ChooseRandomCorner()
+    public static Edge ChooseRandomCorner()
     {
         int value = GenerateRandomInt(0, 4);
         switch (value)
         {
             case 0:
-                return Corner.Northeast;
+                return Edge.Northeast;
             case 1:
-                return Corner.Northwest;
+                return Edge.Northwest;
             case 2:
-                return Corner.Southeast;
+                return Edge.Southeast;
             case 3:
-                return Corner.Southwest;
+                return Edge.Southwest;
             default:
                 Debug.LogWarning("Random int Generator failed, using default value");
-                return Corner.Northwest;
+                return Edge.Northwest;
         }
         
     }
 
-    public static Corner EndpointCorner(Corner start, bool turnLeft)
+    public static Edge EndpointCorner(Edge start, bool turnLeft)
     {
         switch (start)
         {
-            case Corner.Northeast:
+            case Edge.Northeast:
                 if (turnLeft)
-                    return Corner.Southeast;
-                return Corner.Northwest;
+                    return Edge.Southeast;
+                return Edge.Northwest;
 
-            case Corner.Southeast:
+            case Edge.Southeast:
                 if (turnLeft)
-                    return Corner.Southwest;
-                return Corner.Northeast;
+                    return Edge.Southwest;
+                return Edge.Northeast;
 
-            case Corner.Southwest:
+            case Edge.Southwest:
                 if (turnLeft)
-                    return Corner.Northwest;
-                return Corner.Southeast;
+                    return Edge.Northwest;
+                return Edge.Southeast;
 
-            case Corner.Northwest:
+            case Edge.Northwest:
                 if (turnLeft)
-                    return Corner.Northeast;
-                return Corner.Southwest;
+                    return Edge.Northeast;
+                return Edge.Southwest;
 
             default:
                 throw new ArgumentOutOfRangeException("start", start, null);

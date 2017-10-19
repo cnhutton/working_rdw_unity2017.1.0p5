@@ -40,24 +40,24 @@ public class SpawnManager : MonoBehaviour
         Instantiate(PurpleFeetPrefab, spawnPoint, rotation);
     }
 
-    public void PurpleFeet(Corner corner)
+    public void PurpleFeet(Edge edge)
     {
-        switch (corner)
+        switch (edge)
         {
-            case Corner.Northeast:
+            case Edge.Northeast:
                 Instantiate(PurpleFeetPrefab, NortheastSpawn.position, Quaternion.Euler(0, -135, 0));
                 break;
-            case Corner.Southeast:
+            case Edge.Southeast:
                 Instantiate(PurpleFeetPrefab, SoutheastSpawn.position, Quaternion.Euler(0, -45, 0));
                 break;
-            case Corner.Southwest:
+            case Edge.Southwest:
                 Instantiate(PurpleFeetPrefab, SouthwestSpawn.position, Quaternion.Euler(0, 45, 0));
                 break;
-            case Corner.Northwest:
+            case Edge.Northwest:
                 Instantiate(PurpleFeetPrefab, NorthwestSpawn.position, Quaternion.Euler(0, 135, 0));
                 break;
             default:
-                throw new ArgumentOutOfRangeException("corner", corner, null);
+                throw new ArgumentOutOfRangeException("edge", edge, null);
         }
     }
 
@@ -104,24 +104,24 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void ContinueButton(Corner corner)
+    public void ContinueButton(Edge edge)
     {
-        switch (corner)
+        switch (edge)
         {
-            case Corner.Northeast:
+            case Edge.Northeast:
                 GameObject clone1 = (GameObject)Instantiate(ContinueButtonPrefab, NortheastSpawn.position, Quaternion.Euler(0, -135, 0)) as GameObject;
                 break;
-            case Corner.Southeast:
+            case Edge.Southeast:
                 GameObject clone2 = (GameObject)Instantiate(ContinueButtonPrefab, SoutheastSpawn.position, Quaternion.Euler(0, -45, 0)) as GameObject;
                 break;
-            case Corner.Southwest:
+            case Edge.Southwest:
                 GameObject clone3 = (GameObject)Instantiate(ContinueButtonPrefab, SouthwestSpawn.position, Quaternion.Euler(0, 45, 0)) as GameObject;
                 break;
-            case Corner.Northwest:
+            case Edge.Northwest:
                 GameObject clone4 = (GameObject)Instantiate(ContinueButtonPrefab, NorthwestSpawn.position, Quaternion.Euler(0, 135, 0)) as GameObject;
                 break;
             default:
-                throw new ArgumentOutOfRangeException("corner", corner, null);
+                throw new ArgumentOutOfRangeException("edge", edge, null);
         }
     }
 
@@ -156,45 +156,45 @@ public class SpawnManager : MonoBehaviour
         Instantiate(MotionSicknessPrefab, NorthWallSpawn.position, Quaternion.identity);
     }
 
-    public void Path(bool spawnLeftTurn, Corner startCorner)
+    public void Path(bool spawnLeftTurn, Edge startEdge)
     {
-        switch (startCorner)
+        switch (startEdge)
         {
-            case Corner.Northeast:
+            case Edge.Northeast:
                 Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.identity);
                 break;
-            case Corner.Southeast:
+            case Edge.Southeast:
                 Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.Euler(0, 90, 0));
                 break;
-            case Corner.Southwest:
+            case Edge.Southwest:
                 Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.Euler(0, 180, 0));
                 break;
-            case Corner.Northwest:
+            case Edge.Northwest:
                 Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.Euler(0, -90, 0));
                 break;
             default:
-                throw new ArgumentOutOfRangeException("startCorner", startCorner, null);
+                throw new ArgumentOutOfRangeException("startEdge", startEdge, null);
         }
     }
 
-    public void Endpoint(Corner corner)
+    public void Endpoint(Edge edge)
     {
-        switch (corner)
+        switch (edge)
         {
-            case Corner.Northeast:
+            case Edge.Northeast:
                 Instantiate(EndpointPrefab, NortheastSpawn.position, Quaternion.identity);
                 break;
-            case Corner.Southeast:
+            case Edge.Southeast:
                 Instantiate(EndpointPrefab, SoutheastSpawn.position, Quaternion.identity);
                 break;
-            case Corner.Southwest:
+            case Edge.Southwest:
                 Instantiate(EndpointPrefab, SouthwestSpawn.position, Quaternion.identity);
                 break;
-            case Corner.Northwest:
+            case Edge.Northwest:
                 Instantiate(EndpointPrefab, NorthwestSpawn.position, Quaternion.identity);
                 break;
             default:
-                throw new ArgumentOutOfRangeException("corner", corner, null);
+                throw new ArgumentOutOfRangeException("edge", edge, null);
         }
     }
 
@@ -219,24 +219,24 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void DiscernmentButtons(Corner corner)
+    public void DiscernmentButtons(Edge edge)
     {
-        switch (corner)
+        switch (edge)
         {
-            case Corner.Northeast:
+            case Edge.Northeast:
                 Instantiate(DiscernmentButtonsPrefab, NortheastSpawn.position, Quaternion.Euler(0, -135, 0));
                 break;
-            case Corner.Southeast:
+            case Edge.Southeast:
                 Instantiate(DiscernmentButtonsPrefab, SoutheastSpawn.position, Quaternion.Euler(0, -45, 0));
                 break;
-            case Corner.Southwest:
+            case Edge.Southwest:
                 Instantiate(DiscernmentButtonsPrefab, SouthwestSpawn.position, Quaternion.Euler(0, 45, 0));
                 break;
-            case Corner.Northwest:
+            case Edge.Northwest:
                 Instantiate(DiscernmentButtonsPrefab, NorthwestSpawn.position, Quaternion.Euler(0, 135, 0));
                 break;
             default:
-                throw new ArgumentOutOfRangeException("corner", corner, null);
+                throw new ArgumentOutOfRangeException("edge", edge, null);
         }
     }
 
