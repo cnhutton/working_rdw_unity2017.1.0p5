@@ -217,12 +217,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9d1b08ef2d83b4345a5dcdbec38455c0, type: 3}
   - {fileID: 8300000, guid: 711267d50a1f8864aa688ca961cef4e8, type: 3}
   - {fileID: 8300000, guid: 3dab28e6f0023e346a198fa23dc84d3f, type: 3}
-  - {fileID: 8300000, guid: 2e6a84a179696914ea16ced93a73ab59, type: 3}
   - {fileID: 8300000, guid: 4beb7698e7628de4db9963d31596fa3b, type: 3}
   - {fileID: 8300000, guid: d3087d1d0c753a940bafaeb87b727248, type: 3}
   - {fileID: 8300000, guid: eb2a6fcc012c16740aed91706dbe81cf, type: 3}
   - {fileID: 8300000, guid: 61d8c2e7be712804aad4c94c147fcd63, type: 3}
-  - {fileID: 8300000, guid: 8101dbd32a3e61646bd796f8bdb59777, type: 3}
 --- !u!114 &1327437159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,13 +286,13 @@ MonoBehaviour:
   WestWallSpawn: {fileID: 4665764084417472, guid: 2b3b4263afcb433419ef01fc72254bed,
     type: 2}
   PathSpawn: {fileID: 4349507573453498, guid: e05fe10206c80e04a91a44ed42119d68, type: 2}
-  NortheastSpawn: {fileID: 4993447579200650, guid: 2f476d626d0f8724687cd3112ca32639,
+  NorthEdgeSpawn: {fileID: 4993447579200650, guid: 2f476d626d0f8724687cd3112ca32639,
     type: 2}
-  SoutheastSpawn: {fileID: 4131439469639660, guid: 2f476d626d0f8724687cd3112ca32639,
+  EastEdgeSpawn: {fileID: 4131439469639660, guid: 2f476d626d0f8724687cd3112ca32639,
     type: 2}
-  SouthwestSpawn: {fileID: 4396013826416216, guid: 2f476d626d0f8724687cd3112ca32639,
+  SouthEdgeSpawn: {fileID: 4396013826416216, guid: 2f476d626d0f8724687cd3112ca32639,
     type: 2}
-  NorthwestSpawn: {fileID: 4213581990775384, guid: 2f476d626d0f8724687cd3112ca32639,
+  WestEdgeSpawn: {fileID: 4213581990775384, guid: 2f476d626d0f8724687cd3112ca32639,
     type: 2}
 --- !u!114 &1327437162
 MonoBehaviour:

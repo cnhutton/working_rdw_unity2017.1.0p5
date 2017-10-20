@@ -171,6 +171,27 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public void Path(bool spawnLeftTurn, Edge startEdge, out GameObject path)
+    {
+        switch (startEdge)
+        {
+            case Edge.North:
+                path = Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.identity);
+                break;
+            case Edge.East:
+                path = Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.Euler(0, 90, 0));
+                break;
+            case Edge.South:
+                path = Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.Euler(0, 180, 0));
+                break;
+            case Edge.West:
+                path = Instantiate(spawnLeftTurn ? LeftPathPrefab : RightPathPrefab, PathSpawn.position, Quaternion.Euler(0, -90, 0));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("startEdge", startEdge, null);
+        }
+    }
+
     public void Endpoint(Edge edge)
     {
         switch (edge)
@@ -191,6 +212,49 @@ public class SpawnManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException("edge", edge, null);
         }
     }
+
+    public void Endpoint(Edge edge, out GameObject endpoint)
+    {
+        switch (edge)
+        {
+            case Edge.North:
+                endpoint = Instantiate(EndpointPrefab, NorthEdgeSpawn.position, Quaternion.identity);
+                break;
+            case Edge.East:
+                endpoint = Instantiate(EndpointPrefab, EastEdgeSpawn.position, Quaternion.identity);
+                break;
+            case Edge.South:
+                endpoint = Instantiate(EndpointPrefab, SouthEdgeSpawn.position, Quaternion.identity);
+                break;
+            case Edge.West:
+                endpoint = Instantiate(EndpointPrefab, WestEdgeSpawn.position, Quaternion.identity);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("edge", edge, null);
+        }
+    }
+
+    public void MoveEndpoint(Edge edge, GameObject g)
+    {
+        switch (edge)
+        {
+            case Edge.North:
+                g.transform.position = NorthEdgeSpawn.position;
+                break;
+            case Edge.East:
+                g.transform.position = EastEdgeSpawn.position;
+                break;
+            case Edge.South:
+                g.transform.position = SouthEdgeSpawn.position;
+                break;
+            case Edge.West:
+                g.transform.position = WestEdgeSpawn.position;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("edge", edge, null);
+        }
+    }
+
 
     public void DiscernmentButtons(Direction wall, out GameObject buttons)
     {
@@ -213,21 +277,42 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void DiscernmentButtons(Edge edge)
+    public void DiscernmentButtons(Edge edge, out GameObject buttons)
     {
         switch (edge)
         {
             case Edge.North:
-                Instantiate(DiscernmentButtonsPrefab, NorthWallSpawn.position, Quaternion.Euler(0, -135, 0));
+                buttons = Instantiate(DiscernmentButtonsPrefab, NorthWallSpawn.position, Quaternion.identity);
                 break;
             case Edge.East:
-                Instantiate(DiscernmentButtonsPrefab, EastWallSpawn.position, Quaternion.Euler(0, -45, 0));
+                buttons = Instantiate(DiscernmentButtonsPrefab, EastWallSpawn.position, Quaternion.Euler(0, 90, 0));
                 break;
             case Edge.South:
-                Instantiate(DiscernmentButtonsPrefab, SouthWallSpawn.position, Quaternion.Euler(0, 45, 0));
+                buttons = Instantiate(DiscernmentButtonsPrefab, SouthWallSpawn.position, Quaternion.Euler(0, 180, 0));
                 break;
             case Edge.West:
-                Instantiate(DiscernmentButtonsPrefab, WestEdgeSpawn.position, Quaternion.Euler(0, 135, 0));
+                buttons = Instantiate(DiscernmentButtonsPrefab, WestEdgeSpawn.position, Quaternion.Euler(0, -90, 0));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("edge", edge, null);
+        }
+    }
+
+    public void MoveDiscernmentButtons(GameObject g, Edge edge)
+    {
+        switch (edge)
+        {
+            case Edge.North:
+                g.transform.position = NorthWallSpawn.position;
+                break;
+            case Edge.East:
+                g.transform.position = EastWallSpawn.position;
+                break;
+            case Edge.South:
+                g.transform.position = SouthWallSpawn.position;
+                break;
+            case Edge.West:
+                g.transform.position = WestWallSpawn.position;
                 break;
             default:
                 throw new ArgumentOutOfRangeException("edge", edge, null);

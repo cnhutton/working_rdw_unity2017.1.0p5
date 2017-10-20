@@ -11,10 +11,6 @@ public class Level5 : MonoBehaviour
     private Edge _startingEdge;
     private Edge _endingEdge;
 
-    public delegate void EndpointReached();
-
-    public static event EndpointReached Reached;
-
     private AlgorithmType algorithm; //
     private float positiveAvg;
     private float negativeAvg;
@@ -22,15 +18,21 @@ public class Level5 : MonoBehaviour
     private float negativeAlg;
     private Feedback response;
 
+    private GameObject path;
+    private GameObject endpoint;
+    private GameObject buttons;
+
     void Start()
     {
-        Manager.Sound.SetIndex(12);
+        Manager.Sound.SetIndex(11);
         FindObjectOfType<Controller>().SetGain(0);
+
         _startingEdge = LevelUtilities.ChooseRandomEdge();
+        _turnLeft = LevelUtilities.GenerateRandomBool();
         Manager.Spawn.PurpleFeet(_startingEdge);
         FeetObject.OnCollision += Feet;
         Pointer.Click += Touchpad;
-        _turnLeft = LevelUtilities.GenerateRandomBool();
+        
         useIndividualized = LevelUtilities.GenerateRandomBool();
         usePositive = LevelUtilities.GenerateRandomBool();
         Manager.Sound.PlayNextVoiceover(2.0f); //#13 position & follow path
@@ -46,7 +48,7 @@ public class Level5 : MonoBehaviour
     private void Feet()
     {
         FeetObject.OnCollision -= Feet;
-        SetupPath();
+        SetupInitialPath();
     }
 
     private void Endpoint()
@@ -54,18 +56,36 @@ public class Level5 : MonoBehaviour
         ++count;
         ++totalCount;
         EndpointObject.OnCollision -= Endpoint;
+        endpoint.SetActive(false);
+        Manager.Spawn.MoveDiscernmentButtons(buttons, _endingEdge);
+        buttons.SetActive(true);
+        Manager.Sound.PlaySpecificVoiceover(12);
+    }
 
-        if (Reached != null)
+    private void SetupInitialPath()
+    {
+        _endingEdge = LevelUtilities.EndpointEdge(_startingEdge, _turnLeft);
+        Manager.Spawn.Path(_turnLeft, _startingEdge, out path);
+        Manager.Spawn.Endpoint(_endingEdge, out endpoint);
+
+        Manager.Spawn.DiscernmentButtons(_endingEdge, out buttons);
+        buttons.SetActive(false);
+        EndpointObject.OnCollision += Endpoint;
+
+        float gain = 0;
+        if (useIndividualized)
         {
-            Reached();
+            gain = usePositive ? positiveAlg : negativeAlg;
         }
+        else
+            gain = usePositive ? positiveAvg : negativeAvg;
 
-        Manager.Spawn.DiscernmentButtons(_endingEdge);
-        Manager.Sound.PlaySpecificVoiceover(13);
+        FindObjectOfType<Controller>().SetGain(gain);
     }
 
     private void SetupPath()
     {
+        Manager.Sound.PlaySpecificVoiceover(13);
         _turnLeft = !_turnLeft;
 
         if (count == 2)
@@ -89,8 +109,8 @@ public class Level5 : MonoBehaviour
 
         FindObjectOfType<Controller>().SetGain(gain);
         _endingEdge = LevelUtilities.EndpointEdge(_startingEdge, _turnLeft);
-        Manager.Spawn.Path(_turnLeft, _startingEdge);
-        Manager.Spawn.Endpoint(_endingEdge);
+        Manager.Spawn.MoveEndpoint(_endingEdge, endpoint);
+        endpoint.SetActive(true);
         EndpointObject.OnCollision += Endpoint;
     }
 
@@ -101,33 +121,25 @@ public class Level5 : MonoBehaviour
         switch (type)
         {
             case ObjectType.FMS:
-                int value;
-                Manager.Experiment.GetFMSResponse(out value);
-                UpdateFMS(value);
-                if (totalCount == 4 && !isFinal)
-                {
-                    Manager.SceneSwitcher.LoadNextScene(SceneName.Four);
-                }
-                else
-                {
-
-                }
                 break;
             case ObjectType.SameButton:
                 response = Feedback.Same;
-                //Manager.Spawn.MotionSicknessUI();
                 if (totalCount == 4 && !isFinal)
                 {
                     Manager.SceneSwitcher.LoadNextScene(SceneName.Four);
+
                 }
+                buttons.SetActive(false);
+                SetupPath();
                 break;
             case ObjectType.DifferentButton:
                 response = Feedback.Different;
-                //Manager.Spawn.MotionSicknessUI();
                 if (totalCount == 4 && !isFinal)
                 {
                     Manager.SceneSwitcher.LoadNextScene(SceneName.Four);
                 }
+                buttons.SetActive(false);
+                SetupPath();
                 break;
             case ObjectType.ContinueButton:
                 break;

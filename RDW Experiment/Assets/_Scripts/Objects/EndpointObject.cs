@@ -10,10 +10,8 @@ public class EndpointObject : MonoBehaviour
     {
         if (OnCollision != null)
         {
-            Debug.LogWarning("Trigger " + collision.name);
+            //Debug.LogWarning("Trigger " + collision.name);
             OnCollision();
-            Destroy(gameObject.GetComponent<Collider>());
-            DestroyObject();
         }
 
     }
