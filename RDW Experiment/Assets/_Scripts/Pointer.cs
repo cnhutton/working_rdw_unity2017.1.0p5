@@ -45,7 +45,6 @@ public class Pointer : MonoBehaviour
                     {
                         if (Click != null)
                         {
-                            //Debug.LogWarning("Click");
                             Click(_hit.transform.GetComponent<ButtonObject>().type);
                         }
                     }
@@ -73,54 +72,14 @@ public class Pointer : MonoBehaviour
                 _cursor.transform.position = _hit.point;
                 _cursor.transform.rotation = Quaternion.FromToRotation(Vector3.forward, _hit.normal);
             }
-            //if (!_FMS)
-            //{
-
-            //}
-
-
-            //if (Controller.GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
-            //{
-            //    //notChanged = true;
-            //    //FindObjectOfType<SliderObject>().ChangeColor(false);
-            //}
-
-            //if (Controller.GetTouchDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
-            //{
-
-            //    bool hit = Physics.Raycast(_trackedObj.transform.position, transform.forward, out _hit, 100);
-            //    if (hit)
-            //    {
-            //        if (_hit.transform.tag == "FMS")
-            //        {
-            //            Debug.Log("TouchDown");
-            //            if (notChanged)
-            //            {
-            //                FindObjectOfType<SliderObject>().ChangeColor(true);
-            //                notChanged = false;
-            //            }
-            //        }
-            //    }
-            //}
-            //if (Controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad) && !notChanged)
-            //{
-            //    Vector2 touch = Controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
-            //    if (touch.y > 0.25f)
-            //    {
-            //        FindObjectOfType<RatingObject>().SetText(true);
-            //        FindObjectOfType<SliderObject>().UpdatePosition();
-            //    }
-            //    else if (touch.y < 0.25f)
-            //    {
-            //        FindObjectOfType<RatingObject>().SetText(false);
-            //        FindObjectOfType<SliderObject>().UpdatePosition();
-            //    }
-            //}
-
         }
 
 
     }
+
+
+
+
 
     private void FMS()
     {

@@ -9,7 +9,7 @@ public class Preload : MonoBehaviour
         Manager.SayHello();
         Manager.Experiment.Initialize();
         Manager.Sound.Initialize();
-        StartCoroutine(loadSceneAfterDelay(3));
+        StartCoroutine(loadSceneAfterDelay(2));
     }
 
 

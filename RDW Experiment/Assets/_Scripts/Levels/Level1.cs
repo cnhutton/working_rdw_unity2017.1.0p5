@@ -7,9 +7,10 @@ public class Level1 : MonoBehaviour
     public Transform PurpleFeetSpawn;
     public Transform ContinueSpawn;
 
-    private GameObject button;
-    private bool readyToAdvance = false;
+    private GameObject _button;
 
+    // ReSharper disable once UnusedMember.Local
+    // ReSharper disable once ArrangeTypeMemberModifiers
     void Start()
     {
         Manager.Spawn.PurpleFeet(PurpleFeetSpawn.position);
@@ -37,10 +38,7 @@ public class Level1 : MonoBehaviour
             case ObjectType.DifferentButton:
                 break;
             case ObjectType.ContinueButton:
-                if (readyToAdvance)
-                {
                     Manager.SceneSwitcher.LoadNextScene(SceneName.Two);
-                }
                 break;
             default:
                 throw new ArgumentOutOfRangeException("type", type, null);
@@ -50,7 +48,6 @@ public class Level1 : MonoBehaviour
     private IEnumerator WaitToSpawn()
     {
         yield return new WaitForSeconds(10.0f);
-        Manager.Spawn.ContinueButton(Direction.North, out button);
-        readyToAdvance = true;
+        Manager.Spawn.ContinueButton(Direction.North, out _button);
     }
 }

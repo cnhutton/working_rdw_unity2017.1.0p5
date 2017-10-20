@@ -19,6 +19,10 @@ public class AlgorithmManager : MonoBehaviour
     private int _stimulusLevel;
     private float _maxStimulusRange;
     private float _std;
+    private int _count;
+    private int _maxCount;
+    private List<float> gains = new List<float>();
+    private List<Feedback> feedback = new List<Feedback>();
 
     //Staircase specific variables
     private float _stepSize;
@@ -48,6 +52,8 @@ public class AlgorithmManager : MonoBehaviour
                 break;
 
             case AlgorithmType.PEST:
+                _count = 0;
+                _maxCount = 9;
                 _maxStimulusRange = _currentGain * 2;    //Max gain value to try
                 _std = _numLevels / 5;                //Reasonable estimation of slope (can be adjusted)
 
@@ -84,8 +90,11 @@ public class AlgorithmManager : MonoBehaviour
                 FindObjectOfType<Controller>().SetGain(_currentGain);
                 break;
             case AlgorithmType.PEST:
+                gains.Add(_currentGain);
+                feedback.Add(Response);
                 PEST();
                 FindObjectOfType<Controller>().SetGain(_currentGain);
+                ++_count;
                 break;
             default:
                 throw new ArgumentOutOfRangeException("algorithm", algorithm, null);
@@ -154,26 +163,77 @@ public class AlgorithmManager : MonoBehaviour
             }
         }
 
-        Debug.Log("Full sum: " + 0.775f * Mathf.Log(fullSum));
-        Debug.Log("Sum: " + Mathf.Log(sum));
+        if (Mathf.Log(fullSum) * 0.775f <= Mathf.Log(sum))
+            CompletePest(false);
 
-        if (!(Mathf.Log(fullSum) * 0.775f <= Mathf.Log(sum))) return;
-        if (_negativeTest)
+        if (_count >= _maxCount)
+            CompletePest(true);
+
+        ///if (Mathf.Log(fullSum) * 0.775f </= Mathf.Log(sum) || _count >= _maxCount)
+        ///{
+        ///    if (_negativeTest)
+        ///    {
+        ///        Debug.Log("Negative PEST complete");
+        ///        Manager.Experiment.SetThresholdPEST(_positiveThreshold, _currentGain);
+        ///        if (Complete != null)
+        ///        {
+        ///            Complete();
+        ///        }
+        ///        _negativeTest = false;
+        ///    }
+        ///    else
+        ///    {
+        ///        Debug.Log("Positive PEST complete");
+        ///        _positiveThreshold = _currentGain;
+        ///        _negativeTest = true;
+        ///        Initialize(AlgorithmType.PEST);
+        ///    }
+        ///}
+    }
+
+    private void CompletePest(bool countExceeded)
+    {
+        if (countExceeded)
         {
-            Debug.Log("Negative PEST complete");
-            Manager.Experiment.SetThresholdPEST(_positiveThreshold, _currentGain);
-            if (Complete != null)
+            if (_negativeTest)
             {
-                Complete();
+                Debug.Log("Negative PEST complete, maxCount exceeded");
+                Debug.Log(Response);
+                Manager.Experiment.SetThresholdPEST(_positiveThreshold, _currentGain);
+                if (Complete != null)
+                {
+                    Complete();
+                }
+                _negativeTest = false;
             }
-            _negativeTest = false;
+            else
+            {
+                Debug.Log("Positive PEST complete, maxCount exceeded");
+                Debug.Log(Response);
+                _positiveThreshold = _currentGain;
+                _negativeTest = true;
+                Initialize(AlgorithmType.PEST);
+            }
         }
         else
         {
-            Debug.Log("Positive PEST complete");
-            _positiveThreshold = _currentGain;
-            _negativeTest = true;
-            Initialize(AlgorithmType.PEST);
+            if (_negativeTest)
+            {
+                Debug.Log("Negative PEST complete");
+                Manager.Experiment.SetThresholdPEST(_positiveThreshold, _currentGain);
+                if (Complete != null)
+                {
+                    Complete();
+                }
+                _negativeTest = false;
+            }
+            else
+            {
+                Debug.Log("Positive PEST complete");
+                _positiveThreshold = _currentGain;
+                _negativeTest = true;
+                Initialize(AlgorithmType.PEST);
+            }
         }
     }
 
@@ -205,7 +265,6 @@ public class AlgorithmManager : MonoBehaviour
         if (newZ != Zn)
         {
             ReversalList.Add(_currentGain);
-            Debug.Log(ReversalList.Count);
             if (ReversalList.Count == MaxReversals)
             {
                 if (_negativeTest)
@@ -228,6 +287,7 @@ public class AlgorithmManager : MonoBehaviour
                 }
             }
         }
+
         Zn = newZ;
         _currentGain -= _stepSize * (2 * Zn - 1);
         Debug.Log(_currentGain);

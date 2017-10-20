@@ -12,18 +12,14 @@ public class Level2 : MonoBehaviour
 
     private GameObject button;
     private bool _completed;
-
-    public delegate void EndpointReached();
-
-    public static event EndpointReached Reached;
-    private bool readyToAdvance = false;
+    
     void Start()
     {
         FindObjectOfType<Controller>().SetGain(0);
         Manager.Sound.SetIndex(2);
         _completed = false;
 
-        _startingEdge = LevelUtilities.ChooseRandomCorner();
+        _startingEdge = LevelUtilities.ChooseRandomEdge();
         Manager.Spawn.PurpleFeet(_startingEdge);
         FeetObject.OnCollision += Feet;
         Pointer.Click += Touchpad;
@@ -34,23 +30,17 @@ public class Level2 : MonoBehaviour
     private void Feet()
     {
         FeetObject.OnCollision -= Feet;
-        SetupPath();
+        StartCoroutine(SetupPath(1.0f));
         Manager.Sound.PlayNextVoiceover(1.0f); //voiceover #3
     }
 
     private void Endpoint()
     {
-        Debug.Log("Endpoint reached");
         EndpointObject.OnCollision -= Endpoint;
-        if (Reached != null)
-        {
-            Reached();
-        }
         if (_completed)
         {
-            Manager.Spawn.ContinueButton(Direction.North, out button);
+            Manager.Spawn.ContinueButton(_endingEdge, out button);
             Manager.Sound.PlayNextVoiceover(); //voiceover #5
-            readyToAdvance = true;
         }
         else
         {
@@ -59,17 +49,8 @@ public class Level2 : MonoBehaviour
             _turnLeft = !_turnLeft;
             _startingEdge = _endingEdge;
             _completed = true;
-            SetupPath();
+            StartCoroutine(SetupPath(1.0f));
         }
-    }
-
-    private void SetupPath()
-    {
-        _endingEdge = LevelUtilities.EndpointCorner(_startingEdge, _turnLeft);
-        Manager.Spawn.Path(_turnLeft, _startingEdge);
-        Manager.Spawn.Endpoint(_endingEdge);
-        EndpointObject.OnCollision += Endpoint;
-        FindObjectOfType<Controller>().SetGain(_completed ? 0.5f : -0.5f);
     }
 
     private void Touchpad(ObjectType type)
@@ -83,16 +64,29 @@ public class Level2 : MonoBehaviour
             case ObjectType.DifferentButton:
                 break;
             case ObjectType.ContinueButton:
-                if (readyToAdvance)
-                {
-                    readyToAdvance = false;
-                    Manager.SceneSwitcher.LoadNextScene(SceneName.Three);
-                }
+                Manager.SceneSwitcher.LoadNextScene(SceneName.Three);
                 Debug.LogError("Scene 2 continue reached");
                 break;
             default:
                 throw new ArgumentOutOfRangeException("type", type, null);
         }
     }
+
+    private IEnumerator SetupPath(float delay)
+    {
+        _endingEdge = LevelUtilities.EndpointEdge(_startingEdge, _turnLeft);
+        yield return new WaitForSeconds(delay);
+        Manager.Spawn.Path(_turnLeft, _startingEdge);
+        Manager.Spawn.Endpoint(_endingEdge);
+        EndpointObject.OnCollision += Endpoint;
+        StartCoroutine(SetGain(1.0f));
+    }
+
+    private IEnumerator SetGain(float delay)
+    {
+        yield return new WaitForSeconds (delay);
+        FindObjectOfType<Controller>().SetGain(_completed ? 0.5f : -0.5f);
+    }
+
 
 }

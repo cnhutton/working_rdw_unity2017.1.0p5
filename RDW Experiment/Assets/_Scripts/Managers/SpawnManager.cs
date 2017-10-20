@@ -24,10 +24,10 @@ public class SpawnManager : MonoBehaviour
     public Transform SouthWallSpawn;
     public Transform WestWallSpawn;
     public Transform PathSpawn;
-    public Transform NortheastSpawn;
-    public Transform SoutheastSpawn;
-    public Transform SouthwestSpawn;
-    public Transform NorthwestSpawn;
+    public Transform NorthEdgeSpawn;
+    public Transform EastEdgeSpawn;
+    public Transform SouthEdgeSpawn;
+    public Transform WestEdgeSpawn;
 
     //Need completion: continue button, motion sickness, path
     public void PurpleFeet(Vector3 spawnPoint)
@@ -35,26 +35,21 @@ public class SpawnManager : MonoBehaviour
         Instantiate(PurpleFeetPrefab, spawnPoint, Quaternion.identity);
     }
 
-    public void PurpleFeet(Vector3 spawnPoint, Quaternion rotation)
-    {
-        Instantiate(PurpleFeetPrefab, spawnPoint, rotation);
-    }
-
-    public void PurpleFeet(Edge edge)
+    public void PurpleFeet(Edge edge) //
     {
         switch (edge)
         {
             case Edge.North:
-                Instantiate(PurpleFeetPrefab, NortheastSpawn.position, Quaternion.Euler(0, -135, 0));
+                Instantiate(PurpleFeetPrefab, NorthEdgeSpawn.position, Quaternion.Euler(0, 180, 0));
                 break;
             case Edge.East:
-                Instantiate(PurpleFeetPrefab, SoutheastSpawn.position, Quaternion.Euler(0, -45, 0));
+                Instantiate(PurpleFeetPrefab, EastEdgeSpawn.position, Quaternion.Euler(0, -90, 0));
                 break;
             case Edge.South:
-                Instantiate(PurpleFeetPrefab, SouthwestSpawn.position, Quaternion.Euler(0, 45, 0));
+                Instantiate(PurpleFeetPrefab, SouthEdgeSpawn.position, Quaternion.identity);
                 break;
             case Edge.West:
-                Instantiate(PurpleFeetPrefab, NorthwestSpawn.position, Quaternion.Euler(0, 135, 0));
+                Instantiate(PurpleFeetPrefab, WestEdgeSpawn.position, Quaternion.Euler(0, 90, 0));
                 break;
             default:
                 throw new ArgumentOutOfRangeException("edge", edge, null);
@@ -82,7 +77,6 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-
     public void ContinueButton(Direction wall, out GameObject button)
     {
         switch (wall)
@@ -104,21 +98,21 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void ContinueButton(Edge edge)
+    public void ContinueButton(Edge edge, out GameObject button)
     {
         switch (edge)
         {
             case Edge.North:
-                GameObject clone1 = (GameObject)Instantiate(ContinueButtonPrefab, NortheastSpawn.position, Quaternion.Euler(0, -135, 0)) as GameObject;
+                button = (GameObject)Instantiate(ContinueButtonPrefab, NorthEdgeSpawn.position, Quaternion.identity) as GameObject;
                 break;
             case Edge.East:
-                GameObject clone2 = (GameObject)Instantiate(ContinueButtonPrefab, SoutheastSpawn.position, Quaternion.Euler(0, -45, 0)) as GameObject;
+                button = (GameObject)Instantiate(ContinueButtonPrefab, EastEdgeSpawn.position, Quaternion.Euler(0, 90, 0)) as GameObject;
                 break;
             case Edge.South:
-                GameObject clone3 = (GameObject)Instantiate(ContinueButtonPrefab, SouthwestSpawn.position, Quaternion.Euler(0, 45, 0)) as GameObject;
+                button = (GameObject)Instantiate(ContinueButtonPrefab, SouthEdgeSpawn.position, Quaternion.Euler(0, 180, 0)) as GameObject;
                 break;
             case Edge.West:
-                GameObject clone4 = (GameObject)Instantiate(ContinueButtonPrefab, NorthwestSpawn.position, Quaternion.Euler(0, 135, 0)) as GameObject;
+                button = (GameObject)Instantiate(ContinueButtonPrefab, WestEdgeSpawn.position, Quaternion.Euler(0, -90, 0)) as GameObject;
                 break;
             default:
                 throw new ArgumentOutOfRangeException("edge", edge, null);
@@ -127,7 +121,7 @@ public class SpawnManager : MonoBehaviour
 
     public void ArrowButton(bool spawnLeftArrow, out GameObject arrow)
     {
-        arrow = Instantiate( LeftArrowPrefab, SouthWallSpawn.position, spawnLeftArrow ? Quaternion.identity : Quaternion.Euler(0, 180, 0));
+        arrow = Instantiate( LeftArrowPrefab, NorthWallSpawn.position, spawnLeftArrow ? Quaternion.identity : Quaternion.Euler(0, 180, 0));
     }
 
     public void Painting(Direction wall, out GameObject painting)
@@ -182,16 +176,16 @@ public class SpawnManager : MonoBehaviour
         switch (edge)
         {
             case Edge.North:
-                Instantiate(EndpointPrefab, NortheastSpawn.position, Quaternion.identity);
+                Instantiate(EndpointPrefab, NorthEdgeSpawn.position, Quaternion.identity);
                 break;
             case Edge.East:
-                Instantiate(EndpointPrefab, SoutheastSpawn.position, Quaternion.identity);
+                Instantiate(EndpointPrefab, EastEdgeSpawn.position, Quaternion.identity);
                 break;
             case Edge.South:
-                Instantiate(EndpointPrefab, SouthwestSpawn.position, Quaternion.identity);
+                Instantiate(EndpointPrefab, SouthEdgeSpawn.position, Quaternion.identity);
                 break;
             case Edge.West:
-                Instantiate(EndpointPrefab, NorthwestSpawn.position, Quaternion.identity);
+                Instantiate(EndpointPrefab, WestEdgeSpawn.position, Quaternion.identity);
                 break;
             default:
                 throw new ArgumentOutOfRangeException("edge", edge, null);
@@ -224,51 +218,21 @@ public class SpawnManager : MonoBehaviour
         switch (edge)
         {
             case Edge.North:
-                Instantiate(DiscernmentButtonsPrefab, NortheastSpawn.position, Quaternion.Euler(0, -135, 0));
+                Instantiate(DiscernmentButtonsPrefab, NorthWallSpawn.position, Quaternion.Euler(0, -135, 0));
                 break;
             case Edge.East:
-                Instantiate(DiscernmentButtonsPrefab, SoutheastSpawn.position, Quaternion.Euler(0, -45, 0));
+                Instantiate(DiscernmentButtonsPrefab, EastWallSpawn.position, Quaternion.Euler(0, -45, 0));
                 break;
             case Edge.South:
-                Instantiate(DiscernmentButtonsPrefab, SouthwestSpawn.position, Quaternion.Euler(0, 45, 0));
+                Instantiate(DiscernmentButtonsPrefab, SouthWallSpawn.position, Quaternion.Euler(0, 45, 0));
                 break;
             case Edge.West:
-                Instantiate(DiscernmentButtonsPrefab, NorthwestSpawn.position, Quaternion.Euler(0, 135, 0));
+                Instantiate(DiscernmentButtonsPrefab, WestEdgeSpawn.position, Quaternion.Euler(0, 135, 0));
                 break;
             default:
                 throw new ArgumentOutOfRangeException("edge", edge, null);
         }
     }
 
-    public void CalibrationRotation(GameObject g, Direction wall )
-    {
-        switch (wall)
-        {
-            case Direction.North:
-                g.transform.position = NorthWallSpawn.position;
-                g.transform.rotation = Quaternion.identity;
-                break;
-            case Direction.East:
-                g.transform.position = EastWallSpawn.position;
-                g.transform.rotation = Quaternion.Euler(0, 90, 0);
-                break;
-            case Direction.South:
-                g.transform.position = SouthWallSpawn.position;
-                g.transform.rotation = Quaternion.Euler(0, 180, 0);
-                break;
-            case Direction.West:
-                g.transform.position = WestWallSpawn.position;
-                g.transform.rotation = Quaternion.Euler(0, -90, 0);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException("wall", wall, null);
-        }
-        
-    }
-
-    public void ArrowRotation(GameObject g, bool left)
-    {
-        g.transform.rotation = left ? Quaternion.identity : Quaternion.Euler(0, 180, 0);
-    }
 
 }

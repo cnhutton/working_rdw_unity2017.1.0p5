@@ -8,7 +8,7 @@ public class LevelUtilities
 {
     public static void WriteToFile(string path, string text)
     {
-        StreamWriter writer = new StreamWriter(path, true);
+        StreamWriter writer = new StreamWriter(path, true); //
         writer.WriteLine(text);
         writer.Close();
     }
@@ -29,7 +29,7 @@ public class LevelUtilities
         return new Vector3(vector.x, 0, vector.z);
     }
 
-    public static Edge ChooseRandomCorner()
+    public static Edge ChooseRandomEdge()
     {
         int value = GenerateRandomInt(0, 4);
         switch (value)
@@ -46,10 +46,10 @@ public class LevelUtilities
                 Debug.LogError("Random int Generator failed, using default value");
                 return Edge.West;
         }
-        
+
     }
 
-    public static Edge EndpointCorner(Edge start, bool turnLeft)
+    public static Edge EndpointEdge(Edge start, bool turnLeft)
     {
         switch (start)
         {
@@ -78,5 +78,5 @@ public class LevelUtilities
         }
     }
 
-    
+
 }

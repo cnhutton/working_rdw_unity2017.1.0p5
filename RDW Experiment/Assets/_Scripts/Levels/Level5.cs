@@ -15,7 +15,7 @@ public class Level5 : MonoBehaviour
 
     public static event EndpointReached Reached;
 
-    private AlgorithmType algorithm;
+    private AlgorithmType algorithm; //
     private float positiveAvg;
     private float negativeAvg;
     private float positiveAlg;
@@ -26,7 +26,7 @@ public class Level5 : MonoBehaviour
     {
         Manager.Sound.SetIndex(12);
         FindObjectOfType<Controller>().SetGain(0);
-        _startingEdge = LevelUtilities.ChooseRandomCorner();
+        _startingEdge = LevelUtilities.ChooseRandomEdge();
         Manager.Spawn.PurpleFeet(_startingEdge);
         FeetObject.OnCollision += Feet;
         Pointer.Click += Touchpad;
@@ -88,7 +88,7 @@ public class Level5 : MonoBehaviour
             gain = usePositive ? positiveAvg : negativeAvg;
 
         FindObjectOfType<Controller>().SetGain(gain);
-        _endingEdge = LevelUtilities.EndpointCorner(_startingEdge, _turnLeft);
+        _endingEdge = LevelUtilities.EndpointEdge(_startingEdge, _turnLeft);
         Manager.Spawn.Path(_turnLeft, _startingEdge);
         Manager.Spawn.Endpoint(_endingEdge);
         EndpointObject.OnCollision += Endpoint;
@@ -110,7 +110,7 @@ public class Level5 : MonoBehaviour
                 }
                 else
                 {
-                    
+
                 }
                 break;
             case ObjectType.SameButton:

@@ -5,32 +5,33 @@ public class Level3 : MonoBehaviour
 {
 
     public Transform Player;
-    
+    public GameObject Room;
+    public GameObject NorthWall;
+    public GameObject EastWall;
+    public GameObject SouthWall;
+    public GameObject WestWall;
     public Transform PurpleFeetSpawn;
 
-    private GameObject painting;
-    private GameObject discernment;
-    private GameObject arrow;
-    private GameObject proceed;
+    private GameObject _painting;
+    private GameObject _discernment;
+    private GameObject _arrowNorth;
+    private GameObject _arrowSouth;
+    private GameObject _proceed;
 
-    private bool turnLeft;
-    private bool readyToAdvance = false;
-    private bool trainingComplete;
-    public GameObject Room;
-    public delegate void Reset();
+    private bool _turnLeft;
+    private bool _trainingComplete;
 
-    public static event Reset reset;
+    private bool _northArrow;
 
     void Start()
     {
         Manager.Sound.SetIndex(6);
         FindObjectOfType<Controller>().SetGain(0);
-        Manager.Spawn.PurpleFeet(PurpleFeetSpawn.position, Quaternion.Euler(0, 180, 0));
+        Manager.Spawn.PurpleFeet(PurpleFeetSpawn.position);
         FeetObject.OnCollision += Feet;
-        
-        turnLeft = LevelUtilities.GenerateRandomBool();
-        trainingComplete = false;
-        Manager.Sound.PlayNextVoiceover(1.0f); //#6 position purple
+        _turnLeft = LevelUtilities.GenerateRandomBool();
+        _trainingComplete = false;
+        Manager.Sound.PlayNextVoiceover(1.0f); //#6 position purplex
     }
 
     private void Feet()
@@ -39,35 +40,41 @@ public class Level3 : MonoBehaviour
         Pointer.Click += Touchpad;
         Manager.Sound.PlayNextVoiceover(); //#7 calibration info
         SetupInitialCalibration();
-        Manager.Sound.PlayNextVoiceover(5f); //#8 after turning
+        Manager.Sound.PlayNextVoiceover(6f); //#8 after turning
     }
 
     private void SetupInitialCalibration()
     {
-        Manager.Spawn.ArrowButton(turnLeft, out arrow);
-        Manager.Spawn.Painting(turnLeft ? Direction.West : Direction.East, out painting);
-        Manager.Spawn.DiscernmentButtons(turnLeft ? Direction.West : Direction.East, out discernment);
-        Manager.Spawn.ProceedButton(turnLeft ? Direction.West : Direction.East, out proceed);
+        _northArrow = true;
+        Manager.Spawn.ArrowButton(_turnLeft, out _arrowNorth);
+        Manager.Spawn.ArrowButton(_turnLeft, out _arrowSouth);
+        Manager.Spawn.Painting(_turnLeft ? Direction.West : Direction.East, out _painting);
+        Manager.Spawn.DiscernmentButtons(_turnLeft ? Direction.West : Direction.East, out _discernment);
+        Manager.Spawn.ProceedButton(_turnLeft ? Direction.West : Direction.East, out _proceed);
+        _arrowNorth.transform.SetParent(NorthWall.transform);
+        _arrowSouth.transform.SetParent(SouthWall.transform);
+        _painting.transform.SetParent(_turnLeft ? WestWall.transform : EastWall.transform);
+        _discernment.transform.SetParent(_turnLeft ? WestWall.transform : EastWall.transform);
+        _proceed.transform.SetParent(_turnLeft ? WestWall.transform : EastWall.transform);
 
-        proceed.SetActive(false);
+        _arrowSouth.SetActive(false);
+        _proceed.SetActive(false);
         
     }
 
     private void SetupCalibration()
     {
-        
-        turnLeft = !turnLeft;
-        if (!trainingComplete)
+        _turnLeft = !_turnLeft;
+        if (!_trainingComplete)
         {
             Manager.Sound.PlayNextVoiceover(1.0f); //#9 practice until comfortable then continue
-            trainingComplete = true;
+            _trainingComplete = true;
         }
-        proceed.SetActive(true);
-        Manager.Spawn.CalibrationRotation(painting, turnLeft ? Direction.West : Direction.East);
-        Manager.Spawn.CalibrationRotation(discernment, turnLeft ? Direction.West : Direction.East);
-        Manager.Spawn.CalibrationRotation(proceed, turnLeft ? Direction.West : Direction.East);
-        Manager.Spawn.ArrowRotation(arrow, turnLeft);
-        RotateRoom(!turnLeft);
+        _proceed.SetActive(true);
+        _northArrow = !_northArrow;
+        _arrowNorth.SetActive(_northArrow);
+        _arrowSouth.SetActive(!_northArrow);
+        RotateRoom(!_turnLeft);
     }
 
     private void Touchpad(ObjectType type)
@@ -83,11 +90,7 @@ public class Level3 : MonoBehaviour
                 SetupCalibration();
                 break;
             case ObjectType.ContinueButton:
-                if (readyToAdvance)
-                {
-                    readyToAdvance = false;
-                    Manager.SceneSwitcher.LoadNextScene(SceneName.Four);
-                }
+                Manager.SceneSwitcher.LoadNextScene(SceneName.Four);
                 break;
             default:
                 throw new ArgumentOutOfRangeException("type", type, null);
@@ -98,10 +101,9 @@ public class Level3 : MonoBehaviour
     {
         SteamVR_Fade.Start(Color.black, 1f, true);
         Vector3 axis = new Vector3(0, 1, 0);
-        float angle = turn ? -90f : 90f;
+        float angle = turn ? 90f : -90f;
         Room.transform.RotateAround(Vector3.zero, axis, angle);
         SteamVR_Fade.Start(Color.clear, 1.2f);
-        Debug.LogError("Room rotated successfully");
     }
 }
 

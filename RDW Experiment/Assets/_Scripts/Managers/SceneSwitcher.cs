@@ -27,22 +27,22 @@ public class SceneSwitcher : MonoBehaviour
         switch (name)
         {
             case SceneName.Zero:
-                SceneManager.LoadSceneAsync("0 Preload");
+                SceneManager.LoadScene("0 Preload");
                 break;
             case SceneName.One:
-                SceneManager.LoadSceneAsync("1 Intro");
+                SceneManager.LoadScene("1 Intro");
                 break;
             case SceneName.Two:
-                SceneManager.LoadSceneAsync("2 RDW Training");
+                SceneManager.LoadScene("2 RDW Training");
                 break;
             case SceneName.Three:
-                SceneManager.LoadSceneAsync("3 Calibration Training");
+                SceneManager.LoadScene("3 Calibration Training");
                 break;
             case SceneName.Four:
-                SceneManager.LoadSceneAsync("4 Calibration");
+                SceneManager.LoadScene("4 Calibration");
                 break;
             case SceneName.Five:
-                SceneManager.LoadSceneAsync("5 Walkthrough");
+                SceneManager.LoadScene("5 Walkthrough");
                 break;
             default:
                 throw new ArgumentOutOfRangeException("name", name, null);
