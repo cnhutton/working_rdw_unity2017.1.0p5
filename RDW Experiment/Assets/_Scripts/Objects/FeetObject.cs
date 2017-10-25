@@ -11,7 +11,6 @@ public class FeetObject : MonoBehaviour
     {
         if (OnCollision != null && collision.tag == "MainCamera")
         {
-            Debug.LogWarning("Trigger " + collision.name);
             OnCollision();
             Destroy(gameObject.GetComponent<Collider>());
             DestroyObject();

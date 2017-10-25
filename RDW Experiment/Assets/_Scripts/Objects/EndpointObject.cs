@@ -11,6 +11,7 @@ public class EndpointObject : MonoBehaviour
         if (OnCollision != null)
         {
             //Debug.LogWarning("Trigger " + collision.name);
+            Destroy(gameObject.GetComponent<Collider>());
             OnCollision();
         }
 
